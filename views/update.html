@@ -1,0 +1,34 @@
+<!-- HTML form to submit PUT request -->
+<form id="updateForm">
+    <label for="songID">Song ID:</label>
+    <input type="text" id="songID" name="songID" required><br><br>
+
+    <label for="actor">Actor Name:</label>
+    <input type="text" id="actor" name="Actor" required><br><br>
+
+    <label for="actress">Actress Name:</label>
+    <input type="text" id="actress" name="Actress" required><br><br>
+
+    <button type="submit">Update Actor and Actress</button>
+</form>
+
+<script>
+    document.getElementById("updateForm").addEventListener("submit", async function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        const songID = document.getElementById("songID").value;
+        const actor = document.getElementById("actor").value;
+        const actress = document.getElementById("actress").value;
+
+        const response = await fetch("/updateactorandactress", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ songID: songID, Actor: actor, Actress: actress })
+        });
+
+        const data = await response.json();
+        console.log(data); // Handle response from server
+    });
+</script>
